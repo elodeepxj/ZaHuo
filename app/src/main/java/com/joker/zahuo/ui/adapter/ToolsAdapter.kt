@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import com.joker.zahuo.R
-import kotlinx.android.synthetic.main.activity_main.view.*
 
 /**
  * Created by tv on 2018/7/6.
