@@ -33,6 +33,10 @@ class ToolsAdapter : RecyclerView.Adapter<ToolsAdapter.ToolsViewHolder> {
     override fun onBindViewHolder(holder: ToolsViewHolder?, position: Int) {
         if(mList?.size as Int > position){
             holder?.name?.text = mList?.get(position)
+            when (position){
+                0->holder?.icon?.setImageResource(R.mipmap.icon_dictionary)
+                1->holder?.icon?.setImageResource(R.mipmap.icon_exchange)
+            }
         }
     }
 
@@ -43,8 +47,8 @@ class ToolsAdapter : RecyclerView.Adapter<ToolsAdapter.ToolsViewHolder> {
         var icon:ImageView
 
         constructor(view :View):super(view){
-            name = view.findViewById(R.id.ALT)
-            icon = view.findViewById(R.id.ALT)
+            name = view.findViewById(R.id.name)
+            icon = view.findViewById(R.id.icon)
         }
     }
 

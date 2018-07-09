@@ -12,7 +12,7 @@
     </group>
     <group android:checkableBehavior="single" android:id="@+id/group3">
         <item
-            android:id="@+id/floating_action_button"
+            android:id="@+id/small_tools"
             android:title="@string/navigation_menu_small_tools" />
     </group>
 </menu>

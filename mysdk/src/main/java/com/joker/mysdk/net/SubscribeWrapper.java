@@ -27,26 +27,16 @@ public class SubscribeWrapper<T extends BaseEntity> implements Subscriber<T> {
 
     @Override
     public void onNext(T t) {
-        String code = t.getCode();
-        String message = t.getMessage();
-        if(null != t){
-            if(!TextUtils.isEmpty(code)){
-                if(Api.SUCCESS_CODE.equals(code)){
-                    requestListener.onSuccess(t);
-                }else {
-                    requestListener.onFail(message);
-                }
-            }else{
-                requestListener.onFail(Api.FAIL_MESSAGE);
-            }
-        }else {
+        if (null != t) {
+            requestListener.onSuccess(t);
+        } else {
             requestListener.onFail(Api.FAIL_MESSAGE);
         }
     }
 
     @Override
     public void onError(Throwable t) {
-        LogUtil.e(t.getMessage()+" "+t.getLocalizedMessage());
+        LogUtil.e(t.getMessage() + " " + t.getLocalizedMessage());
         requestListener.onFail(t.getMessage());
     }
 
@@ -55,8 +45,9 @@ public class SubscribeWrapper<T extends BaseEntity> implements Subscriber<T> {
 
     }
 
-    public interface RequestListener<T>{
+    public interface RequestListener<T> {
         void onSuccess(T t);
+
         void onFail(String message);
     }
 }

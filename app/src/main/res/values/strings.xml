@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">ZaHuo</string>
     <string name="navigation_menu_small_tools">小工具</string>
+    <string name="network_connection_error">网络连接错误</string>
+    <string name="back">返回</string>
     <array name="tools_name">
         <item>新华字典</item>
         <item>汇率换算</item>

@@ -123,4 +123,8 @@ public class RetrofitHelper {
     public <T>T getApiService(Class<T> clazz){
         return createRetrofit(mClient,Api.BASE_URL).create(clazz);
     }
+
+    public <T>T getApiService(String baseUrl,Class<T> clazz){
+        return createRetrofit(mClient,baseUrl).create(clazz);
+    }
 }
