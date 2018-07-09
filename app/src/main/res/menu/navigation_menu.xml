@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single" android:id="@+id/group1">
+        <item
+            android:id="@+id/snakebar"
+            android:title="功能开发中" />
+    </group>
+    <group android:checkableBehavior="single" android:id="@+id/group2">
+        <item
+            android:id="@+id/text_input_layout"
+            android:title="功能开发中" />
+    </group>
+    <group android:checkableBehavior="single" android:id="@+id/group3">
+        <item
+            android:id="@+id/floating_action_button"
+            android:title="@string/navigation_menu_small_tools" />
+    </group>
+</menu>
