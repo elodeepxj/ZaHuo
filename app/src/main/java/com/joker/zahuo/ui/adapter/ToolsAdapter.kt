@@ -37,6 +37,7 @@ class ToolsAdapter : RecyclerView.Adapter<ToolsAdapter.ToolsViewHolder> {
                 0->holder?.icon?.setImageResource(R.mipmap.icon_dictionary)
                 1->holder?.icon?.setImageResource(R.mipmap.icon_exchange)
             }
+
         }
     }
 
