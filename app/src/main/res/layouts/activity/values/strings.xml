@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="small_tools">小工具</string>
+    <string name="title_small_tools">小工具</string>
+    <string name="title_exchange_converter">汇率换算</string>
 </resources>

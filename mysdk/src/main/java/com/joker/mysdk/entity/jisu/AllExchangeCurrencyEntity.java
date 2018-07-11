@@ -1,6 +1,6 @@
 package com.joker.mysdk.entity.jisu;
 
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Created by tv on 2018/7/9.
@@ -8,13 +8,13 @@ import java.util.List;
 
 public class AllExchangeCurrencyEntity extends JiSuBaseEntity {
 
-    private List<ExchangeCurencyBean> result;
+    private ArrayList<ExchangeCurencyBean> result;
 
-    public List<ExchangeCurencyBean> getResult() {
+    public ArrayList<ExchangeCurencyBean> getResult() {
         return result;
     }
 
-    public void setResult(List<ExchangeCurencyBean> result) {
+    public void setResult(ArrayList<ExchangeCurencyBean> result) {
         this.result = result;
     }
 

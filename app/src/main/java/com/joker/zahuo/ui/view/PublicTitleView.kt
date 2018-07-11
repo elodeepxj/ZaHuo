@@ -114,25 +114,23 @@ class PublicTitleView : RelativeLayout {
        title_layout?.setBackgroundColor(resources.getColor(backgroudColor))
     }
 
-    fun setLineColor(int: Int){
 
-    }
-
-    public fun leftTextOnClick(onClickListener: OnClickListener) {
+    fun leftTextOnClick(onClickListener: OnClickListener) {
         left_text?.setOnClickListener(onClickListener)
     }
 
-    public fun leftIconOnClick(onClickListener: OnClickListener) {
+    fun leftIconOnClick(onClickListener: OnClickListener) {
         left_icon?.setOnClickListener(onClickListener)
     }
 
-    public fun rightTextOnClick(onClickListener: OnClickListener) {
+    fun rightTextOnClick(onClickListener: OnClickListener) {
         right_text?.setOnClickListener(onClickListener)
     }
 
-    public fun rightIconOnClick(onClickListener: OnClickListener) {
+    fun rightIconOnClick(onClickListener: OnClickListener) {
         right_icon?.setOnClickListener(onClickListener)
     }
+
 
 
 }

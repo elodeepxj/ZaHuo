@@ -4,13 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical"
     tools:context="com.joker.zahuo.ui.activity.ToolsHomeActivity">
 
     <com.joker.zahuo.ui.view.PublicTitleView
+        android:id="@+id/title_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:title_text="@string/small_tools"
+        app:title_text="@string/title_small_tools"
         app:lineColor="@color/color_303030"/>
 
     <android.support.v7.widget.RecyclerView

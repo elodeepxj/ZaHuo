@@ -1,6 +1,5 @@
 package com.joker.mysdk.net;
 
-import com.joker.mysdk.entity.BaseEntity;
 import com.joker.mysdk.entity.jisu.AllExchangeCurrencyEntity;
 import com.joker.mysdk.entity.jisu.ExchangeConvertEntity;
 
@@ -25,12 +24,9 @@ public interface Api {
     String FAIL_MESSAGE="返回数据为空";
 
 
-    //http://m.maoyan.com/movie/list.json?type=hot&offset=0&limit=1000
-    @GET("list.json")
-    Flowable<BaseEntity> getMovieList(@Query("type") String type, @Query("offset") String offset, @Query("limit") String limit);
-
-    @POST("exchange/currency")
-    Flowable<AllExchangeCurrencyEntity> QueryExchangeCurrency();
+    /**获取所有货币*/
+    @GET("exchange/currency")
+    Flowable<AllExchangeCurrencyEntity> QueryExchangeCurrency(@Query("appkey") String appkey);
 
     /**汇率转换*/
     @POST("exchange/convert")
