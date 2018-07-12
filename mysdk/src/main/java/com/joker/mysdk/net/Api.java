@@ -30,5 +30,5 @@ public interface Api {
 
     /**汇率转换*/
     @POST("exchange/convert")
-    Flowable<ExchangeConvertEntity> exchangeConvert(@Query("from") String from,@Query("to") String to,@Query("amount") String amount);
+    Flowable<ExchangeConvertEntity> exchangeConvert(@Query("appkey") String appkey,@Query("from") String from,@Query("to") String to,@Query("amount") String amount);
 }

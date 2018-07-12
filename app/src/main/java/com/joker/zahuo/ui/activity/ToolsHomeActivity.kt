@@ -13,6 +13,26 @@ import java.util.*
 
 class ToolsHomeActivity : BaseActivity() ,ToolsAdapter.OnItemClickListener{
 
+    override fun initData() {
+        initAdapter()
+    }
+
+    override fun initView() {
+    }
+
+    override fun initAction() {
+        title_view.leftIconOnClick(onClickListener = View.OnClickListener {
+            finish()
+        })
+        title_view.leftTextOnClick(onClickListener = View.OnClickListener {
+            finish()
+        })
+    }
+
+    override fun getLayout(): Int {
+        return R.layout.activity_tools_home
+    }
+
     override fun onClick(view: View?, i: Int) {
         when(i){
             0->goDictionary()
@@ -33,9 +53,7 @@ class ToolsHomeActivity : BaseActivity() ,ToolsAdapter.OnItemClickListener{
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_tools_home)
-        initAdapter()
-        initAction()
+
     }
 
     private fun initAdapter() {
@@ -48,13 +66,6 @@ class ToolsHomeActivity : BaseActivity() ,ToolsAdapter.OnItemClickListener{
         toolsAdapter.setOnItemClickListener(this)
     }
 
-    private fun initAction() {
-        title_view.leftIconOnClick(onClickListener = View.OnClickListener {
-            finish()
-        })
-        title_view.leftTextOnClick(onClickListener = View.OnClickListener {
-            finish()
-        })
-    }
+
 
 }

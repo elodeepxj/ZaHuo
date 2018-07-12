@@ -176,7 +176,7 @@
     <integer-array name="currency_country_flag">
         <item>@drawable/flag_china</item>
         <item>@drawable/flag_usa</item>
-        <item>@drawable/flag_union_europea</item>
+        <item>@drawable/flag_eu</item>
         <item>@drawable/flag_japan</item>
 
     </integer-array>

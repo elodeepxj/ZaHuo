@@ -9,11 +9,24 @@ import com.joker.zahuo.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity() {
+    override fun initView() {
+
+    }
+    override fun initAction() {
+        initNavigationMenuAction()
+    }
+
+    override fun initData() {
+
+    }
+
+    override fun getLayout(): Int {
+        return R.layout.activity_main
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        initView()
-        initNavigationMenuAction()
+
     }
 
     private fun initNavigationMenuAction() {
@@ -30,7 +43,5 @@ class MainActivity : BaseActivity() {
     }
 
 
-    fun initView() {
-        
-    }
+
 }

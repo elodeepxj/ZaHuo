@@ -1,9 +1,12 @@
 package com.joker.zahuo.ui.activity
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
+import android.text.Editable
 import android.text.TextUtils
-import android.util.Log
+import android.text.TextWatcher
+import android.view.KeyEvent
+import android.view.inputmethod.EditorInfo
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -14,29 +17,47 @@ import com.joker.mysdk.net.NetWorkUtil
 import com.joker.mysdk.net.RetrofitHelper
 import com.joker.mysdk.net.SubscribeWrapper
 import com.joker.mysdk.utils.GsonTools
-import com.joker.mysdk.utils.LogUtil
 import com.joker.mysdk.utils.SpUtils
 import com.joker.zahuo.R
 import com.joker.zahuo.constant.ConstantKey
 import com.joker.zahuo.constant.SPKey
+import kotlinx.android.synthetic.main.activity_exchange_rate.*
 
 class ExchangeRateActivity : AppCompatActivity() {
-    private var original_country_icon: ImageView? = null
-    private var original_country_name: TextView? = null
-    private var target_country_icon: ImageView? = null
-    private var target_country_name: TextView? = null
+
     private var allCurrencyList = ArrayList<AllExchangeCurrencyEntity.ExchangeCurencyBean>()
     private var hasUSD = false
     private var hasCNY = false
-//    private var flagsMap: MutableMap<String,Int>? = null
-    private var flagsMap= mutableMapOf<String,Int>()
+    private var flagsMap = mutableMapOf<String, Int>()
+    private var originalCurrency: AllExchangeCurrencyEntity.ExchangeCurencyBean? = null
+    private var targetCurrency: AllExchangeCurrencyEntity.ExchangeCurencyBean? = null
+    private var amout = 100
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_exchange_rate)
+        initView()
         initFlags()
         getAllCurrencyCode()
-//        exchangeRateConvert()
+        initAction()
+    }
+
+    private fun initAction() {
+        et_original_money.setOnEditorActionListener(object : TextView.OnEditorActionListener {
+            override fun onEditorAction(v: TextView?, actionId: Int, event: KeyEvent?): Boolean {
+                when (actionId) {
+                    EditorInfo.IME_ACTION_SEARCH -> exchangeRateConvert()
+                }
+
+                return false
+            }
+        })
+
+    }
+
+
+
+    private fun initView() {
 
     }
 
@@ -44,30 +65,32 @@ class ExchangeRateActivity : AppCompatActivity() {
         var stringArray = resources.getStringArray(R.array.currency_country_name)
         var intArray = resources.getIntArray(R.array.currency_country_flag)
 //        for(i in stringArray.indices){
-        for(i in 0..3){
-            flagsMap?.set(stringArray[i],intArray[i])
+        for (i in 0..3) {
+            flagsMap?.set(stringArray[i], intArray[i])
         }
 
     }
 
-    private fun setUI() {
-        LogUtil.d(hasCNY)
-        LogUtil.d(hasUSD)
+    private fun setUIAndData() {
         //设置原始货币
         if (hasCNY) {//有rmb
-            original_country_name?.text = ConstantKey.RMB
-            original_country_icon?.setImageResource(R.drawable.flag_china)
+            tv_original_currency?.text = ConstantKey.RMB + " " + ConstantKey.CNY_CODE
+            iv_original_currency?.setImageResource(R.drawable.flag_china)
+            originalCurrency = AllExchangeCurrencyEntity.ExchangeCurencyBean(ConstantKey.RMB, ConstantKey.CNY_CODE)
+
         } else {//没有rmb
             if (hasUSD) {//有美元
-                original_country_name?.text = ConstantKey.USD
-                original_country_icon?.setImageResource(R.drawable.flag_usa)
+                tv_original_currency?.text = ConstantKey.USD + " " + ConstantKey.USD_CODE
+                iv_original_currency?.setImageResource(R.drawable.flag_usa)
+                originalCurrency = AllExchangeCurrencyEntity.ExchangeCurencyBean(ConstantKey.USD, ConstantKey.USD_CODE)
             } else {
                 //既没有rmb，也没有美元，取集合第一个
                 if (allCurrencyList.isNotEmpty()) {
                     var name = allCurrencyList[0].name
-                    original_country_name?.text = name
-                    if(!TextUtils.isEmpty(name) && flagsMap?.contains(name)!!){
-                        flagsMap?.get(allCurrencyList[0].name)?.let { original_country_icon?.setImageResource(it) }
+                    tv_original_currency?.text = name
+                    if (!TextUtils.isEmpty(name) && flagsMap?.contains(name)!!) {
+                        originalCurrency = AllExchangeCurrencyEntity.ExchangeCurencyBean(name, allCurrencyList[0].currency)
+                        flagsMap?.get(allCurrencyList[0].name)?.let { iv_original_currency?.setImageResource(it) }
                     }
                 }
             }
@@ -75,15 +98,25 @@ class ExchangeRateActivity : AppCompatActivity() {
 
         //设置目标货币
         if (hasCNY && hasUSD) {//有rmb,有美元
-            target_country_name?.text = ConstantKey.USD
-            original_country_icon?.setImageResource(R.drawable.flag_usa)
+            tv_target_currency?.text = ConstantKey.USD + " " + ConstantKey.USD_CODE
+            iv_target_currency?.setImageResource(R.drawable.flag_usa)
+            targetCurrency = AllExchangeCurrencyEntity.ExchangeCurencyBean(ConstantKey.USD, ConstantKey.USD_CODE)
         } else if ((!hasCNY && hasUSD) || (hasCNY && !hasUSD)) {//没有rmb，有美元,美元作为原始货币;或者有rmb没有美元;都取第一个其他货币作为目标货币
             if (allCurrencyList.isNotEmpty()) {
-                original_country_name?.text = allCurrencyList[0].name
+                for (it in allCurrencyList) {
+                    if (ConstantKey.USD.equals(it.name)) {
+                        tv_target_currency?.text = it.name
+                        flagsMap?.get(it.name)?.let { iv_target_currency?.setImageResource(it) }
+                        targetCurrency = AllExchangeCurrencyEntity.ExchangeCurencyBean(it.name, it.currency)
+                        break
+                    }
+                }
+
             }
         } else {//没有rmb，没有美元，取第二个作为目标货币
             if (allCurrencyList.size > 1) {
-                original_country_name?.text = allCurrencyList[1].name
+                tv_target_currency?.text = allCurrencyList[1].name
+                targetCurrency = AllExchangeCurrencyEntity.ExchangeCurencyBean(allCurrencyList[1].name, allCurrencyList[1].currency)
             }
         }
 
@@ -98,22 +131,24 @@ class ExchangeRateActivity : AppCompatActivity() {
                 .subscribe(SubscribeWrapper(object : SubscribeWrapper.RequestListener<AllExchangeCurrencyEntity> {
                     override fun onSuccess(t: AllExchangeCurrencyEntity?) {
                         if (t?.status.equals(Api.SUCCESS_CODE)) {
-//                            allCurrencyList = arrayOf(t.result)
                             var jsonString = GsonTools.createGsonString(t)
                             if (!TextUtils.isEmpty(jsonString)) {
                                 SpUtils.saveString(this@ExchangeRateActivity, SPKey.ALL_CURRENCY_LIST, "")
                             }
-                            t?.result?.forEach {
-                                //                                LogUtil.d(it.name,it.currency)
-//                                Log.e("---","<item>"+it.name+"</item>")
-                                when (it.currency) {
-                                    ConstantKey.USD_CODE -> hasUSD = true
-                                    ConstantKey.CNY_CODE -> hasCNY = true
+                            t?.result?.let { allCurrencyList = t.result }
+                            t?.result?.let {
+                                //                                Log.e("---","<item>"+it.name+"</item>")
+                                for (it in t.result) {
+                                    when (it.currency) {
+                                        ConstantKey.USD_CODE -> hasUSD = true
+                                        ConstantKey.CNY_CODE -> hasCNY = true
+                                    }
+                                    if (hasUSD && hasCNY) break
                                 }
-                                allCurrencyList?.add(it)
-
+//                                allCurrencyList?.add(it)
                             }
-                            setUI()
+                            setUIAndData()
+                            exchangeRateConvert()
                         } else {
                             Toast.makeText(this@ExchangeRateActivity, getString(R.string.network_connection_error), Toast.LENGTH_LONG)
                         }
@@ -131,13 +166,19 @@ class ExchangeRateActivity : AppCompatActivity() {
 
     /**汇率转换*/
     private fun exchangeRateConvert() {
+        if (null == originalCurrency) {
+            return
+        }
+        if (null == targetCurrency) {
+            return
+        }
         RetrofitHelper.getInstance().getApiService(Api.JISU_BASE_URL, Api::class.java)
-                .exchangeConvert("", "", "")
+                .exchangeConvert(ConstantKey.JISU_KEY,originalCurrency?.currency, targetCurrency?.currency, amout?.toString())
                 .compose(NetWorkUtil.rxSchedulerHelper())
                 .subscribe(SubscribeWrapper(object : SubscribeWrapper.RequestListener<ExchangeConvertEntity> {
                     override fun onSuccess(t: ExchangeConvertEntity?) {
                         if (t?.status.equals(Api.SUCCESS_CODE)) {
-                            TODO()
+                            tv_target_money.text = t?.result?.camount
                         } else {
                             Toast.makeText(this@ExchangeRateActivity, getString(R.string.network_connection_error), Toast.LENGTH_LONG)
                         }
@@ -148,8 +189,6 @@ class ExchangeRateActivity : AppCompatActivity() {
 
                     }
                 }))
-
-
     }
 
 

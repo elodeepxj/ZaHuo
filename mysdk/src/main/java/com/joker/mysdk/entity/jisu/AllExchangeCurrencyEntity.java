@@ -19,6 +19,11 @@ public class AllExchangeCurrencyEntity extends JiSuBaseEntity {
     }
 
     public static class ExchangeCurencyBean {
+        public ExchangeCurencyBean(String name, String currency) {
+            this.name = name;
+            this.currency = currency;
+        }
+
         /**
          * currency : USD
          * name : 美元

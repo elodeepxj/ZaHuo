@@ -5,11 +5,21 @@ import android.os.Bundle
 import butterknife.ButterKnife
 import com.joker.zahuo.R
 
-open class BaseActivity : AppCompatActivity() {
+abstract class BaseActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_base)
-        ButterKnife.bind(this)
+        setContentView(getLayout())
+        initView()
+        initData()
+        initAction()
     }
+
+    abstract fun initAction()
+
+    abstract fun initData()
+
+    abstract fun initView()
+
+    abstract fun  getLayout():Int
 }
