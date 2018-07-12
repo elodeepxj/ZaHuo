@@ -6,6 +6,7 @@ import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
 import android.view.KeyEvent
+import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.ImageView
 import android.widget.TextView
@@ -31,7 +32,7 @@ class ExchangeRateActivity : AppCompatActivity() {
     private var flagsMap = mutableMapOf<String, Int>()
     private var originalCurrency: AllExchangeCurrencyEntity.ExchangeCurencyBean? = null
     private var targetCurrency: AllExchangeCurrencyEntity.ExchangeCurencyBean? = null
-    private var amout = 100
+    private var amout = "100"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,6 +44,20 @@ class ExchangeRateActivity : AppCompatActivity() {
     }
 
     private fun initAction() {
+        et_original_money.addTextChangedListener(object :TextWatcher{
+            override fun afterTextChanged(s: Editable?) {
+                amout = s.toString()
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
+            }
+        })
+
         et_original_money.setOnEditorActionListener(object : TextView.OnEditorActionListener {
             override fun onEditorAction(v: TextView?, actionId: Int, event: KeyEvent?): Boolean {
                 when (actionId) {
@@ -50,6 +65,20 @@ class ExchangeRateActivity : AppCompatActivity() {
                 }
 
                 return false
+            }
+        })
+
+        ll_original_more.setOnClickListener(object :View.OnClickListener{
+            override fun onClick(v: View?) {
+
+
+            }
+        })
+        
+        ll_target_more.setOnClickListener(object :View.OnClickListener{
+            override fun onClick(v: View?) {
+
+
             }
         })
 
@@ -173,7 +202,7 @@ class ExchangeRateActivity : AppCompatActivity() {
             return
         }
         RetrofitHelper.getInstance().getApiService(Api.JISU_BASE_URL, Api::class.java)
-                .exchangeConvert(ConstantKey.JISU_KEY,originalCurrency?.currency, targetCurrency?.currency, amout?.toString())
+                .exchangeConvert(ConstantKey.JISU_KEY,originalCurrency?.currency, targetCurrency?.currency, amout)
                 .compose(NetWorkUtil.rxSchedulerHelper())
                 .subscribe(SubscribeWrapper(object : SubscribeWrapper.RequestListener<ExchangeConvertEntity> {
                     override fun onSuccess(t: ExchangeConvertEntity?) {
