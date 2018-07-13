@@ -23,7 +23,8 @@
         <activity android:name=".base.BaseActivity" />
         <activity android:name=".ui.activity.ToolsHomeActivity" />
         <activity android:name=".ui.activity.ExchangeRateActivity" />
-        <activity android:name=".ui.activity.CurrencyListActivity"></activity>
+        <activity android:name=".ui.activity.CurrencyListActivity" />
+        <activity android:name=".ui.activity.DictionaryActivity"></activity>
     </application>
 
 </manifest>

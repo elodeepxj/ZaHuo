@@ -24,11 +24,6 @@ class MainActivity : BaseActivity() {
         return R.layout.activity_main
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
-
     private fun initNavigationMenuAction() {
         navigation.setNavigationItemSelectedListener(object : NavigationView.OnNavigationItemSelectedListener{
             override fun onNavigationItemSelected(item: MenuItem): Boolean {

@@ -1,6 +1,7 @@
 package com.joker.mysdk.net;
 
 import com.joker.mysdk.entity.jisu.AllExchangeCurrencyEntity;
+import com.joker.mysdk.entity.jisu.DictionaryEntity;
 import com.joker.mysdk.entity.jisu.ExchangeConvertEntity;
 
 import io.reactivex.Flowable;
@@ -31,4 +32,9 @@ public interface Api {
     /**汇率转换*/
     @POST("exchange/convert")
     Flowable<ExchangeConvertEntity> exchangeConvert(@Query("appkey") String appkey,@Query("from") String from,@Query("to") String to,@Query("amount") String amount);
+
+    //http://api.jisuapi.com/cidian/word
+    /**汉语字典*/
+    @POST("cidian/word")
+    Flowable<DictionaryEntity> word();
 }

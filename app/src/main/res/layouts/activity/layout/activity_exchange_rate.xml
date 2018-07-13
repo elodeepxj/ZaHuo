@@ -11,6 +11,7 @@
     <com.joker.zahuo.ui.view.PublicTitleView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:lineColor="@color/color_707070"
         app:title_text="@string/title_exchange_converter" />
 
     <LinearLayout

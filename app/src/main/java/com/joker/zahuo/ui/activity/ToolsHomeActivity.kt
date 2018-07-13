@@ -42,7 +42,7 @@ class ToolsHomeActivity : BaseActivity() ,ToolsAdapter.OnItemClickListener{
 
     /**跳转字典*/
     private fun goDictionary() {
-
+        
 
     }
 

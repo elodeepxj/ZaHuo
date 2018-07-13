@@ -8,7 +8,6 @@ import android.text.TextWatcher
 import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
-import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import com.joker.mysdk.entity.jisu.AllExchangeCurrencyEntity
@@ -20,12 +19,12 @@ import com.joker.mysdk.net.SubscribeWrapper
 import com.joker.mysdk.utils.GsonTools
 import com.joker.mysdk.utils.SpUtils
 import com.joker.zahuo.R
+import com.joker.zahuo.base.BaseActivity
 import com.joker.zahuo.constant.ConstantKey
 import com.joker.zahuo.constant.SPKey
 import kotlinx.android.synthetic.main.activity_exchange_rate.*
 
-class ExchangeRateActivity : AppCompatActivity() {
-
+class ExchangeRateActivity : BaseActivity() {
     private var allCurrencyList = ArrayList<AllExchangeCurrencyEntity.ExchangeCurencyBean>()
     private var hasUSD = false
     private var hasCNY = false
@@ -34,16 +33,20 @@ class ExchangeRateActivity : AppCompatActivity() {
     private var targetCurrency: AllExchangeCurrencyEntity.ExchangeCurencyBean? = null
     private var amout = "100"
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_exchange_rate)
-        initView()
+
+    override fun initView() {
+
+    }
+    override fun initData() {
         initFlags()
         getAllCurrencyCode()
-        initAction()
     }
 
-    private fun initAction() {
+    override fun getLayout(): Int {
+        return R.layout.activity_exchange_rate
+    }
+
+    override fun initAction() {
         et_original_money.addTextChangedListener(object :TextWatcher{
             override fun afterTextChanged(s: Editable?) {
                 amout = s.toString()
@@ -74,7 +77,7 @@ class ExchangeRateActivity : AppCompatActivity() {
 
             }
         })
-        
+
         ll_target_more.setOnClickListener(object :View.OnClickListener{
             override fun onClick(v: View?) {
 
@@ -86,9 +89,7 @@ class ExchangeRateActivity : AppCompatActivity() {
 
 
 
-    private fun initView() {
 
-    }
 
     private fun initFlags() {
         var stringArray = resources.getStringArray(R.array.currency_country_name)
