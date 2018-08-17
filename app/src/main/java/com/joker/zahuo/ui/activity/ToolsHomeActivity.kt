@@ -42,8 +42,7 @@ class ToolsHomeActivity : BaseActivity() ,ToolsAdapter.OnItemClickListener{
 
     /**跳转字典*/
     private fun goDictionary() {
-        
-
+        startActivity(Intent(this@ToolsHomeActivity,DictionaryActivity::class.java))
     }
 
     /**跳转汇率*/

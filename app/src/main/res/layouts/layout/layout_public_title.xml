@@ -29,15 +29,28 @@
                 android:textSize="@dimen/sp_14" />
 
         </RelativeLayout>
-
-        <TextView
-            android:id="@+id/title"
+        <RelativeLayout
             android:layout_width="0dp"
-            android:layout_height="match_parent"
             android:layout_weight="2"
-            android:gravity="center"
-            android:textColor="@color/color_303030"
-            android:textSize="@dimen/sp_16" />
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:visibility="visible"
+                android:textColor="@color/color_303030"
+                android:textSize="@dimen/sp_16" />
+
+            <EditText
+                android:id="@+id/et_search"
+                android:layout_width="match_parent"
+                android:visibility="gone"
+                android:layout_height="match_parent"
+                android:background="@null"/>
+        </RelativeLayout>
+
+
 
         <RelativeLayout
             android:layout_width="0dp"

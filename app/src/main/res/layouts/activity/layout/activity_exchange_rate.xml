@@ -9,6 +9,7 @@
     tools:context="com.joker.zahuo.ui.activity.ExchangeRateActivity">
 
     <com.joker.zahuo.ui.view.PublicTitleView
+        android:id="@+id/title_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:lineColor="@color/color_707070"

@@ -2,4 +2,5 @@
 <resources>
     <string name="title_small_tools">小工具</string>
     <string name="title_exchange_converter">汇率换算</string>
+    <string name="title_chinese_dictionary">汉语词典</string>
 </resources>

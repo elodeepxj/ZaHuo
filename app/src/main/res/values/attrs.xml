@@ -39,5 +39,10 @@
         </attr>
         <attr name="backgroudColor" format="reference"/>
         <attr name="lineColor" format="reference"/>
+        <attr name="rightIconType">
+            <enum name="done" value="0"/>
+            <enum name="edit" value="1"/>
+            <enum name="search" value="2"/>
+        </attr>
     </declare-styleable>
 </resources>

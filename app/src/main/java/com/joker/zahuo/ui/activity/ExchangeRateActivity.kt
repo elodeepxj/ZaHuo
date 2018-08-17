@@ -17,6 +17,7 @@ import com.joker.mysdk.net.NetWorkUtil
 import com.joker.mysdk.net.RetrofitHelper
 import com.joker.mysdk.net.SubscribeWrapper
 import com.joker.mysdk.utils.GsonTools
+import com.joker.mysdk.utils.LogUtil
 import com.joker.mysdk.utils.SpUtils
 import com.joker.zahuo.R
 import com.joker.zahuo.base.BaseActivity
@@ -47,6 +48,10 @@ class ExchangeRateActivity : BaseActivity() {
     }
 
     override fun initAction() {
+        //返回
+        title_view.leftIconOnClick(onClickListener = View.OnClickListener {
+            finish()
+        })
         et_original_money.addTextChangedListener(object :TextWatcher{
             override fun afterTextChanged(s: Editable?) {
                 amout = s.toString()
@@ -216,7 +221,7 @@ class ExchangeRateActivity : BaseActivity() {
                     }
 
                     override fun onFail(message: String?) {
-
+                        LogUtil.e(message)
                     }
                 }))
     }

@@ -1,9 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.joker.zahuo.ui.activity.DictionaryActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <com.joker.zahuo.ui.view.PublicTitleView
+        android:id="@+id/title_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:rightIconVisibility="visible"
+        app:lineColor="@color/color_707070"
+        app:rightIconType="search"
+        app:right_icon="@mipmap/right_icon_search"
+        app:title_text="@string/title_chinese_dictionary" />
+
+
+</LinearLayout>
