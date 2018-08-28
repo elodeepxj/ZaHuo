@@ -1,11 +1,12 @@
 package com.joker.zahuo.ui.activity
 
 import android.content.Intent
-import android.os.Bundle
 import android.support.design.widget.NavigationView
+import android.support.v7.widget.LinearLayoutManager
 import android.view.MenuItem
 import com.joker.zahuo.R
 import com.joker.zahuo.base.BaseActivity
+import com.joker.zahuo.ui.adapter.HomeAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity() {
@@ -17,7 +18,11 @@ class MainActivity : BaseActivity() {
     }
 
     override fun initData() {
+        var mList:ArrayList<String> = ArrayList<String>()
 
+        var homeAdapter = HomeAdapter(this@MainActivity,mList)
+        rv.layoutManager = LinearLayoutManager(this)
+        rv.adapter = homeAdapter
     }
 
     override fun getLayout(): Int {
